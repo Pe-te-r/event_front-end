@@ -1,81 +1,105 @@
 import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { FaUser, FaCalendarAlt, FaSignOutAlt, FaSignInAlt, FaUserPlus, FaTools, FaHome } from 'react-icons/fa'
+import {
+  FaUser,
+  FaCalendarAlt,
+  FaSignOutAlt,
+  FaSignInAlt,
+  FaUserPlus,
+  FaTools,
+  FaHome,
+  FaBars,
+  FaTimes,
+} from 'react-icons/fa'
 
 export default function Header() {
-  // Toggle this manually for now; in real apps, you'd get this from context/auth
   const [viewMode, setViewMode] = useState<'guest' | 'user' | 'organizer' | 'admin'>('guest')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  const renderLinks = () => {
+    switch (viewMode) {
+      case 'guest':
+        return (
+          <>
+            <Link to="/auth/Login" className="nav-link">
+              <FaSignInAlt /> Login
+            </Link>
+            <Link to="/auth/register" className="nav-link">
+              <FaUserPlus /> Register
+            </Link>
+          </>
+        )
+      case 'user':
+        return (
+          <>
+            <Link to="/events" className="nav-link">
+              <FaCalendarAlt /> Events
+            </Link>
+            <Link to="/my-events" className="nav-link">
+              <FaUser /> My Events
+            </Link>
+            <button className="nav-link text-red-500">
+              <FaSignOutAlt /> Logout
+            </button>
+          </>
+        )
+      case 'organizer':
+        return (
+          <>
+            <Link to="/events/create" className="nav-link">
+              <FaTools /> Create Event
+            </Link>
+            <Link to="/my-hosted-events" className="nav-link">
+              <FaUser /> My Hosted Events
+            </Link>
+            <button className="nav-link text-red-500">
+              <FaSignOutAlt /> Logout
+            </button>
+          </>
+        )
+      case 'admin':
+        return (
+          <>
+            <Link to="/admins/dashboard" className="nav-link">
+              <FaTools /> Dashboard
+            </Link>
+            <Link to="/admins/users" className="nav-link">
+              <FaUser /> Manage Users
+            </Link>
+            <button className="nav-link text-red-500">
+              <FaSignOutAlt /> Logout
+            </button>
+          </>
+        )
+    }
+  }
 
   return (
-    <header className="bg-white shadow-md p-4 flex justify-between items-center">
-      {/* Left - Logo */}
+    <header className="bg-white shadow-md p-4 flex justify-between items-center relative">
+      {/* Logo */}
       <div className="text-xl font-bold text-blue-600 flex items-center gap-2">
         <FaCalendarAlt />
         <Link to="/">EventHub</Link>
       </div>
 
-      {/* Center - Navigation */}
-      <nav className="flex items-center gap-4 text-sm text-gray-700">
-        <Link to="/" className="hover:text-blue-600 flex items-center gap-1">
+      {/* Desktop Navigation */}
+      <nav className="hidden md:flex items-center gap-4 text-sm text-gray-700">
+        <Link to="/" className="nav-link">
           <FaHome /> Home
         </Link>
-
-        {viewMode === 'guest' && (
-          <>
-            <Link to="/auth/Login" className="hover:text-blue-600 flex items-center gap-1">
-              <FaSignInAlt /> Login
-            </Link>
-            <Link to="/auth/register" className="hover:text-blue-600 flex items-center gap-1">
-              <FaUserPlus /> Register
-            </Link>
-          </>
-        )}
-
-        {viewMode === 'user' && (
-          <>
-            <Link to="/events" className="hover:text-blue-600 flex items-center gap-1">
-              <FaCalendarAlt /> Events
-            </Link>
-            <Link to="/my-events" className="hover:text-blue-600 flex items-center gap-1">
-              <FaUser /> My Events
-            </Link>
-            <button className="hover:text-red-500 flex items-center gap-1">
-              <FaSignOutAlt /> Logout
-            </button>
-          </>
-        )}
-
-        {viewMode === 'organizer' && (
-          <>
-            <Link to="/events/create" className="hover:text-blue-600 flex items-center gap-1">
-              <FaTools /> Create Event
-            </Link>
-            <Link to="/my-hosted-events" className="hover:text-blue-600 flex items-center gap-1">
-              <FaUser /> My Hosted Events
-            </Link>
-            <button className="hover:text-red-500 flex items-center gap-1">
-              <FaSignOutAlt /> Logout
-            </button>
-          </>
-        )}
-
-        {viewMode === 'admin' && (
-          <>
-            <Link to="/admins/dashboard" className="hover:text-blue-600 flex items-center gap-1">
-              <FaTools /> Dashboard
-            </Link>
-            <Link to="/admins/users" className="hover:text-blue-600 flex items-center gap-1">
-              <FaUser /> Manage Users
-            </Link>
-            <button className="hover:text-red-500 flex items-center gap-1">
-              <FaSignOutAlt /> Logout
-            </button>
-          </>
-        )}
+        {renderLinks()}
       </nav>
 
-      {/* Right - Mode Toggle Dev Tool (for testing only) */}
-      <div className="text-xs text-gray-500">
+      {/* Mobile menu button */}
+      <button
+        className="md:hidden text-gray-600"
+        onClick={() => setMobileMenuOpen((prev) => !prev)}
+      >
+        {mobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+      </button>
+
+      {/* Right - View mode toggle */}
+      <div className="hidden sm:block text-xs text-gray-500 ml-4">
         <select
           value={viewMode}
           onChange={(e) => setViewMode(e.target.value as any)}
@@ -87,6 +111,28 @@ export default function Header() {
           <option value="admin">Admin</option>
         </select>
       </div>
+
+      {/* Mobile Navigation */}
+      {mobileMenuOpen && (
+        <nav className="absolute top-full left-0 w-full bg-white shadow-md z-10 flex flex-col gap-3 p-4 text-gray-700 md:hidden">
+          <Link to="/" className="nav-link">
+            <FaHome /> Home
+          </Link>
+          {renderLinks()}
+          <div className="block sm:hidden text-xs text-gray-500">
+            <select
+              value={viewMode}
+              onChange={(e) => setViewMode(e.target.value as any)}
+              className="border px-2 py-1 rounded text-sm mt-2"
+            >
+              <option value="guest">Guest</option>
+              <option value="user">User</option>
+              <option value="organizer">Organizer</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </nav>
+      )}
     </header>
   )
 }

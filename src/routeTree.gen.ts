@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MyHostedEventsRouteImport } from './routes/my-hosted-events'
 import { Route as MyEventsRouteImport } from './routes/my-events'
 import { Route as IndexRouteImport } from './routes/index'
@@ -19,6 +21,16 @@ import { Route as AuthLoginRouteImport } from './routes/auth/Login'
 import { Route as AdminsUsersRouteImport } from './routes/admins/users'
 import { Route as AdminsDashboardRouteImport } from './routes/admins/dashboard'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MyHostedEventsRoute = MyHostedEventsRouteImport.update({
   id: '/my-hosted-events',
   path: '/my-hosted-events',
@@ -69,6 +81,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/my-events': typeof MyEventsRoute
   '/my-hosted-events': typeof MyHostedEventsRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/admins/dashboard': typeof AdminsDashboardRoute
   '/admins/users': typeof AdminsUsersRoute
   '/auth/Login': typeof AuthLoginRoute
@@ -80,6 +94,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/my-events': typeof MyEventsRoute
   '/my-hosted-events': typeof MyHostedEventsRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/admins/dashboard': typeof AdminsDashboardRoute
   '/admins/users': typeof AdminsUsersRoute
   '/auth/Login': typeof AuthLoginRoute
@@ -92,6 +108,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/my-events': typeof MyEventsRoute
   '/my-hosted-events': typeof MyHostedEventsRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/admins/dashboard': typeof AdminsDashboardRoute
   '/admins/users': typeof AdminsUsersRoute
   '/auth/Login': typeof AuthLoginRoute
@@ -105,6 +123,8 @@ export interface FileRouteTypes {
     | '/'
     | '/my-events'
     | '/my-hosted-events'
+    | '/privacy'
+    | '/terms'
     | '/admins/dashboard'
     | '/admins/users'
     | '/auth/Login'
@@ -116,6 +136,8 @@ export interface FileRouteTypes {
     | '/'
     | '/my-events'
     | '/my-hosted-events'
+    | '/privacy'
+    | '/terms'
     | '/admins/dashboard'
     | '/admins/users'
     | '/auth/Login'
@@ -127,6 +149,8 @@ export interface FileRouteTypes {
     | '/'
     | '/my-events'
     | '/my-hosted-events'
+    | '/privacy'
+    | '/terms'
     | '/admins/dashboard'
     | '/admins/users'
     | '/auth/Login'
@@ -139,6 +163,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MyEventsRoute: typeof MyEventsRoute
   MyHostedEventsRoute: typeof MyHostedEventsRoute
+  PrivacyRoute: typeof PrivacyRoute
+  TermsRoute: typeof TermsRoute
   AdminsDashboardRoute: typeof AdminsDashboardRoute
   AdminsUsersRoute: typeof AdminsUsersRoute
   AuthLoginRoute: typeof AuthLoginRoute
@@ -149,6 +175,20 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/my-hosted-events': {
       id: '/my-hosted-events'
       path: '/my-hosted-events'
@@ -219,6 +259,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MyEventsRoute: MyEventsRoute,
   MyHostedEventsRoute: MyHostedEventsRoute,
+  PrivacyRoute: PrivacyRoute,
+  TermsRoute: TermsRoute,
   AdminsDashboardRoute: AdminsDashboardRoute,
   AdminsUsersRoute: AdminsUsersRoute,
   AuthLoginRoute: AuthLoginRoute,
