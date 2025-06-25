@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import {
   FaUser,
@@ -11,11 +11,21 @@ import {
   FaBars,
   FaTimes,
 } from 'react-icons/fa'
+import {  authActions, authStore } from '@/stores/authStore'
+import { useStore } from '@tanstack/react-store'
 
 export default function Header() {
+    const authState = useStore(authStore)
   const [viewMode, setViewMode] = useState<'guest' | 'user' | 'organizer' | 'admin'>('guest')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  useEffect(() => {
+    if (authState.user && authState.isAuthenticated) {
+      setViewMode(authState.user.role)
+    } else {
+      setViewMode('guest')
+    }
+  },[authState])
   const renderLinks = () => {
     switch (viewMode) {
       case 'guest':
@@ -38,7 +48,7 @@ export default function Header() {
             <Link to="/my-events" className="nav-link">
               <FaUser /> My Events
             </Link>
-            <button className="nav-link text-red-500">
+            <button onClick={authActions.logout} className="nav-link text-red-500">
               <FaSignOutAlt /> Logout
             </button>
           </>
@@ -52,7 +62,7 @@ export default function Header() {
             <Link to="/my-hosted-events" className="nav-link">
               <FaUser /> My Hosted Events
             </Link>
-            <button className="nav-link text-red-500">
+            <button onClick={authActions.logout} className="nav-link text-red-500">
               <FaSignOutAlt /> Logout
             </button>
           </>
@@ -66,7 +76,7 @@ export default function Header() {
             <Link to="/admins/users" className="nav-link">
               <FaUser /> Manage Users
             </Link>
-            <button className="nav-link text-red-500">
+            <button onClick={authActions.logout}  className="nav-link text-red-500">
               <FaSignOutAlt /> Logout
             </button>
           </>

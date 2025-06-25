@@ -4,7 +4,7 @@ interface User {
   id: string
   email: string
   name: string
-  role: 'user' | 'admin' | 'moderator' // Customize roles as needed
+  role: 'guest' | 'user' | 'organizer' | 'admin'
 }
 
 interface AuthState {

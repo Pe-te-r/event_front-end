@@ -16,7 +16,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: () => (
     <>
       <Header />
-      <Toaster position="top-right" richColors />
+      <Toaster position="top-right" closeButton richColors />
 
       <Outlet />
       <TanStackRouterDevtools />
