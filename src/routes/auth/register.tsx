@@ -31,7 +31,7 @@ function RegisterComponent() {
 
   return (
     <div className="flex justify-center items-start pt-[10vh] min-h-screen bg-gray-50 px-4">
-      <div className="w-full max-w-lg bg-white shadow-xl border rounded-xl p-6 sm:p-8 space-y-6">
+      <div className="w-full max-w-lg bg-white shadow-xl rounded-xl p-6 sm:p-8 space-y-6">
         {/* Heading */}
         <div className="flex items-center gap-2 text-green-600">
           <FaUserPlus size={22} />
@@ -182,19 +182,19 @@ function RegisterComponent() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition flex items-center justify-center gap-2"
+            className="w-full bg-green-600 cursor-pointer text-white py-2 rounded hover:bg-green-700 transition flex items-center justify-center gap-2"
           >
             <FaUserPlus /> Register
           </button>
         </form>
         <p className="text-sm text-gray-600 mt-4 text-center">
                     Already have an account?{' '}
-                    <Link
-                      to="/auth/register"
-                      className="text-blue-600 font-medium hover:underline hover:text-blue-800 transition"
-                    >
-                      Login
-                    </Link>
+          <Link
+            to="/auth/Login"
+            className="text-blue-600 font-medium hover:underline hover:text-blue-800 transition"
+          >
+            Login
+          </Link>
         </p>
 
       </div>

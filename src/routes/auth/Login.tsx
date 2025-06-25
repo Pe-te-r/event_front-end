@@ -96,7 +96,7 @@ function RouteComponent() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-200 flex justify-center items-center gap-2"
+            className="w-full cursor-pointer bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-200 flex justify-center items-center gap-2"
           >
             <FaSignInAlt />
             Login
