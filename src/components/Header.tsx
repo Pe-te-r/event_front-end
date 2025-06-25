@@ -70,7 +70,7 @@ export default function Header() {
       case 'admin':
         return (
           <>
-            <Link to="/admins/dashboard" className="nav-link">
+            <Link to="/dashboard" className="nav-link">
               <FaTools /> Dashboard
             </Link>
             <Link to="/admins/users" className="nav-link">
@@ -109,7 +109,7 @@ export default function Header() {
       </button>
 
       {/* Right - View mode toggle */}
-      <div className="hidden sm:block text-xs text-gray-500 ml-4">
+      {/* <div className="hidden sm:block text-xs text-gray-500 ml-4">
         <select
           value={viewMode}
           onChange={(e) => setViewMode(e.target.value as any)}
@@ -120,7 +120,7 @@ export default function Header() {
           <option value="organizer">Organizer</option>
           <option value="admin">Admin</option>
         </select>
-      </div>
+      </div> */}
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (

@@ -1,8 +1,7 @@
-import { authActions, authStore } from '@/stores/authStore'
+import {  authStore } from '@/stores/authStore'
 import { createFileRoute } from '@tanstack/react-router'
 import { Link } from '@tanstack/react-router'
 import { useStore } from '@tanstack/react-store'
-import { useEffect } from 'react'
 import { FaCalendarPlus, FaUsers, FaLock, FaSearch } from 'react-icons/fa'
 
 export const Route = createFileRoute('/')({
@@ -11,9 +10,7 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   const authState = useStore(authStore)
-  useEffect(() => {
-    authActions.initialize()
-  }, [])
+
 
   return (
     <>
