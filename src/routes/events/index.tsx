@@ -1,4 +1,5 @@
-import type { useQuery } from '@tanstack/react-query'
+import { query } from '@/lib/demo-store'
+import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/events/')({
@@ -6,6 +7,9 @@ export const Route = createFileRoute('/events/')({
 })
 
 function RouteComponent() {
-  // const {}=useQuery({})
+  const { } = useQuery({
+    queryKey: ['events'],
+    queryFn:()=>query(''),
+  })
   return <div>Hello "/events/"!</div>
 }

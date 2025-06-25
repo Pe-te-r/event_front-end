@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fa'
 import { FormGroup } from '@/components/FormGroup'
 
-export const Route = createFileRoute('/auth/register')({
+export const Route = createFileRoute('/(auth)/register')({
   component: RegisterComponent,
 })
 
@@ -190,7 +190,7 @@ function RegisterComponent() {
         <p className="text-sm text-gray-600 mt-4 text-center">
                     Already have an account?{' '}
           <Link
-            to="/auth/Login"
+            to="/Login"
             className="text-blue-600 font-medium hover:underline hover:text-blue-800 transition"
           >
             Login

@@ -21,10 +21,10 @@ export default function Header() {
       case 'guest':
         return (
           <>
-            <Link to="/auth/Login" className="nav-link">
+            <Link to="/Login" className="nav-link">
               <FaSignInAlt /> Login
             </Link>
-            <Link to="/auth/register" className="nav-link">
+            <Link to="/register" className="nav-link">
               <FaUserPlus /> Register
             </Link>
           </>

@@ -1,25 +1,37 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useForm } from '@tanstack/react-form'
 import { FaEnvelope, FaLock, FaSignInAlt } from 'react-icons/fa'
+import { useMutation } from '@tanstack/react-query'
+import { LoginUser } from '@/api/login'
 
-export const Route = createFileRoute('/auth/Login')({
+export const Route = createFileRoute('/(auth)/Login')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  // send data
+  const mutation = useMutation({
+    mutationFn: LoginUser,
+    onSuccess: (data) => {
+      console.log('Login success:', data)
+    }
+  })
+
+  // form
   const form = useForm({
     defaultValues: {
       email: '',
       password: '',
     },
     onSubmit: async ({ value }) => {
+      mutation.mutate(value)
       console.log('Logging in with:', value)
       // TODO: Handle the actual login
     },
   })
 
   return (
-  <div className="flex justify-center min-h-screen bg-gray-50 px-4 pt-[25vh]">  
+    <div className="flex justify-center min-h-screen bg-gray-50 px-4 pt-[25vh]">
       <div className="w-full max-w-md bg-white shadow-lg  rounded-lg p-6 h-max sm:p-8">
         {/* Title */}
         <div className="flex items-center gap-2 mb-6 text-blue-600">
@@ -104,7 +116,7 @@ function RouteComponent() {
           <p className="text-sm text-gray-600 mt-4 text-center">
             Don&apos;t have an account?{' '}
             <Link
-              to="/auth/register"
+              to="/register"
               className="text-blue-600 font-medium hover:underline hover:text-blue-800 transition"
             >
               Register
