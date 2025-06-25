@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { useForm } from '@tanstack/react-form'
 import {
   FaUser,
@@ -8,12 +8,27 @@ import {
   FaUserPlus
 } from 'react-icons/fa'
 import { FormGroup } from '@/components/FormGroup'
+import { useMutation } from '@tanstack/react-query'
+import { registerUser } from '@/api/register'
+import { toast } from 'sonner'
 
 export const Route = createFileRoute('/(auth)/register')({
   component: RegisterComponent,
 })
 
 function RegisterComponent() {
+  const navigate = useNavigate()
+  const mutation = useMutation({
+    mutationFn: registerUser,
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success('Registration was successful!! You can Login');
+      navigate({ to: '/Login' });
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    }
+  })
   const form = useForm({
     defaultValues: {
       first_name: '',
@@ -24,8 +39,8 @@ function RegisterComponent() {
       confirm_password: '',
     },
     onSubmit: async ({ value }) => {
-      console.log('Registering user with:', value)
       // TODO: Handle registration logic
+      mutation.mutate(value)
     },
   })
 

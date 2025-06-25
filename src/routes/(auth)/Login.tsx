@@ -38,8 +38,8 @@ function RouteComponent() {
   // form
   const form = useForm({
     defaultValues: {
-      email: 'mary21@duck.com',
-      password: 'mary@8526',
+      email: '',
+      password: '',
     },
     onSubmit: async ({ value }) => {
       mutation.mutate(value)
