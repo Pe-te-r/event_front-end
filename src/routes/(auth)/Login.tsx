@@ -3,6 +3,7 @@ import { useForm } from '@tanstack/react-form'
 import { FaEnvelope, FaLock, FaSignInAlt } from 'react-icons/fa'
 import { useMutation } from '@tanstack/react-query'
 import { LoginUser } from '@/api/login'
+import { authActions } from '@/stores/authStore'
 
 export const Route = createFileRoute('/(auth)/Login')({
   component: RouteComponent,
@@ -14,14 +15,25 @@ function RouteComponent() {
     mutationFn: LoginUser,
     onSuccess: (data) => {
       console.log('Login success:', data)
+      authActions.login({
+        id: data.user.id,
+        email: data.user.email,
+        name: data.user.username || 'User',
+        role: data.user.role || 'user'
+      },
+        data.accessToken
+      )
+    },
+    onError: (error) => {
+      console.error('Login failed:', error)
     }
   })
 
   // form
   const form = useForm({
     defaultValues: {
-      email: '',
-      password: '',
+      email: 'mary21@duck.com',
+      password: 'mary@8526',
     },
     onSubmit: async ({ value }) => {
       mutation.mutate(value)

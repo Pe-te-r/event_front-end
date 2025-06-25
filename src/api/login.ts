@@ -8,10 +8,10 @@ export async function LoginUser(data: { email: string; password: string }) {
     },
     body: JSON.stringify(data),
   })
-
-  if (!res.ok) {
-    throw new Error('Failed to create event')
+  const responseData = await res.json()
+  if (!res.ok || responseData.status === 'error') {
+    throw new Error(responseData.message || 'Login failed')
   }
 
-  return res.json()
+  return responseData
 }

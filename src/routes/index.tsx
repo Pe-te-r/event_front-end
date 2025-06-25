@@ -1,5 +1,7 @@
+import { authStore } from '@/stores/authStore'
 import { createFileRoute } from '@tanstack/react-router'
 import { Link } from '@tanstack/react-router'
+import { useStore } from '@tanstack/react-store'
 import { FaCalendarPlus, FaUsers, FaLock, FaSearch } from 'react-icons/fa'
 
 export const Route = createFileRoute('/')({
@@ -7,6 +9,9 @@ export const Route = createFileRoute('/')({
 })
 
 function HomePage() {
+  const authState = useStore(authStore)
+  console.log(authState.user)
+
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
       {/* Hero Section */}
@@ -17,13 +22,13 @@ function HomePage() {
         </p>
         <div className="flex justify-center gap-4 flex-wrap">
           <Link
-            to="/auth/Login"
+            to="/Login"
             className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Login
           </Link>
           <Link
-            to="/auth/register"
+            to="/register"
             className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
           >
             Register
