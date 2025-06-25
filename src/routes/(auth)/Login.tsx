@@ -1,20 +1,24 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { useForm } from '@tanstack/react-form'
 import { FaEnvelope, FaLock, FaSignInAlt } from 'react-icons/fa'
 import { useMutation } from '@tanstack/react-query'
 import { LoginUser } from '@/api/login'
 import { authActions } from '@/stores/authStore'
+import { toast } from 'sonner'
 
 export const Route = createFileRoute('/(auth)/Login')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const navigate = useNavigate()
+
   // send data
   const mutation = useMutation({
     mutationFn: LoginUser,
     onSuccess: (data) => {
       console.log('Login success:', data)
+      toast.success('Logged in successfully!')
       authActions.login({
         id: data.user.id,
         email: data.user.email,
@@ -23,9 +27,11 @@ function RouteComponent() {
       },
         data.accessToken
       )
+      navigate({to:'/'})
     },
     onError: (error) => {
-      console.error('Login failed:', error)
+      console.error('Login failed:', (error as Error).message)
+      toast.error((error as Error).message)
     }
   })
 
