@@ -19,7 +19,7 @@ export default function EventCard({ event, onMoreDetails }: Props) {
         <p className="text-sm text-gray-600 mt-2">{event.event_description}</p>
       </div>
       <button
-        className="mt-4n cursor-pointer bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-xl self-start"
+        className="mt-4n cursor-pointer mt-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-xl self-start"
         onClick={() => onMoreDetails?.(event)}
       >
         More Details
