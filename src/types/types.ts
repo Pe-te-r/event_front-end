@@ -20,7 +20,6 @@ export interface eventsType{
 }
 
 
-// types/user.ts or wherever you store types
 
 export interface Payment {
   payment_id: string

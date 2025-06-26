@@ -12,15 +12,19 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as OrganizerRouteImport } from './routes/organizer'
+import { Route as NormalRouteImport } from './routes/normal'
 import { Route as MyEventsRouteImport } from './routes/my-events'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as About_usRouteImport } from './routes/about_us'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrganizerIndexRouteImport } from './routes/organizer/index'
+import { Route as NormalIndexRouteImport } from './routes/normal/index'
 import { Route as EventsIndexRouteImport } from './routes/events/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as OrganizerSettingsRouteImport } from './routes/organizer/settings'
 import { Route as OrganizerMyHostedEventsRouteImport } from './routes/organizer/my-hosted-events'
 import { Route as OrganizerCreateRouteImport } from './routes/organizer/create'
+import { Route as NormalSettingsRouteImport } from './routes/normal/settings'
 import { Route as EventsCreateRouteImport } from './routes/events/create'
 import { Route as EventsIdRouteImport } from './routes/events/$id'
 import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
@@ -49,6 +53,11 @@ const OrganizerRoute = OrganizerRouteImport.update({
   path: '/organizer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NormalRoute = NormalRouteImport.update({
+  id: '/normal',
+  path: '/normal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MyEventsRoute = MyEventsRouteImport.update({
   id: '/my-events',
   path: '/my-events',
@@ -57,6 +66,11 @@ const MyEventsRoute = MyEventsRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const About_usRoute = About_usRouteImport.update({
+  id: '/about_us',
+  path: '/about_us',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -68,6 +82,11 @@ const OrganizerIndexRoute = OrganizerIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => OrganizerRoute,
+} as any)
+const NormalIndexRoute = NormalIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => NormalRoute,
 } as any)
 const EventsIndexRoute = EventsIndexRouteImport.update({
   id: '/events/',
@@ -93,6 +112,11 @@ const OrganizerCreateRoute = OrganizerCreateRouteImport.update({
   id: '/create',
   path: '/create',
   getParentRoute: () => OrganizerRoute,
+} as any)
+const NormalSettingsRoute = NormalSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => NormalRoute,
 } as any)
 const EventsCreateRoute = EventsCreateRouteImport.update({
   id: '/events/create',
@@ -157,8 +181,10 @@ const DashboardEventsIdRoute = DashboardEventsIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about_us': typeof About_usRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/my-events': typeof MyEventsRoute
+  '/normal': typeof NormalRouteWithChildren
   '/organizer': typeof OrganizerRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -167,11 +193,13 @@ export interface FileRoutesByFullPath {
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/events/$id': typeof EventsIdRoute
   '/events/create': typeof EventsCreateRoute
+  '/normal/settings': typeof NormalSettingsRoute
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/my-hosted-events': typeof OrganizerMyHostedEventsRoute
   '/organizer/settings': typeof OrganizerSettingsRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/events': typeof EventsIndexRoute
+  '/normal/': typeof NormalIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/dashboard/events/$id': typeof DashboardEventsIdRoute
   '/dashboard/users/$id': typeof DashboardUsersIdRoute
@@ -183,6 +211,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about_us': typeof About_usRoute
   '/my-events': typeof MyEventsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -191,11 +220,13 @@ export interface FileRoutesByTo {
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/events/$id': typeof EventsIdRoute
   '/events/create': typeof EventsCreateRoute
+  '/normal/settings': typeof NormalSettingsRoute
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/my-hosted-events': typeof OrganizerMyHostedEventsRoute
   '/organizer/settings': typeof OrganizerSettingsRoute
   '/dashboard': typeof DashboardIndexRoute
   '/events': typeof EventsIndexRoute
+  '/normal': typeof NormalIndexRoute
   '/organizer': typeof OrganizerIndexRoute
   '/dashboard/events/$id': typeof DashboardEventsIdRoute
   '/dashboard/users/$id': typeof DashboardUsersIdRoute
@@ -208,8 +239,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about_us': typeof About_usRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/my-events': typeof MyEventsRoute
+  '/normal': typeof NormalRouteWithChildren
   '/organizer': typeof OrganizerRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -218,11 +251,13 @@ export interface FileRoutesById {
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/events/$id': typeof EventsIdRoute
   '/events/create': typeof EventsCreateRoute
+  '/normal/settings': typeof NormalSettingsRoute
   '/organizer/create': typeof OrganizerCreateRoute
   '/organizer/my-hosted-events': typeof OrganizerMyHostedEventsRoute
   '/organizer/settings': typeof OrganizerSettingsRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
+  '/normal/': typeof NormalIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/dashboard/events/$id': typeof DashboardEventsIdRoute
   '/dashboard/users/$id': typeof DashboardUsersIdRoute
@@ -236,8 +271,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about_us'
     | '/dashboard'
     | '/my-events'
+    | '/normal'
     | '/organizer'
     | '/privacy'
     | '/terms'
@@ -246,11 +283,13 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/events/$id'
     | '/events/create'
+    | '/normal/settings'
     | '/organizer/create'
     | '/organizer/my-hosted-events'
     | '/organizer/settings'
     | '/dashboard/'
     | '/events'
+    | '/normal/'
     | '/organizer/'
     | '/dashboard/events/$id'
     | '/dashboard/users/$id'
@@ -262,6 +301,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about_us'
     | '/my-events'
     | '/privacy'
     | '/terms'
@@ -270,11 +310,13 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/events/$id'
     | '/events/create'
+    | '/normal/settings'
     | '/organizer/create'
     | '/organizer/my-hosted-events'
     | '/organizer/settings'
     | '/dashboard'
     | '/events'
+    | '/normal'
     | '/organizer'
     | '/dashboard/events/$id'
     | '/dashboard/users/$id'
@@ -286,8 +328,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about_us'
     | '/dashboard'
     | '/my-events'
+    | '/normal'
     | '/organizer'
     | '/privacy'
     | '/terms'
@@ -296,11 +340,13 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/events/$id'
     | '/events/create'
+    | '/normal/settings'
     | '/organizer/create'
     | '/organizer/my-hosted-events'
     | '/organizer/settings'
     | '/dashboard/'
     | '/events/'
+    | '/normal/'
     | '/organizer/'
     | '/dashboard/events/$id'
     | '/dashboard/users/$id'
@@ -313,8 +359,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  About_usRoute: typeof About_usRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   MyEventsRoute: typeof MyEventsRoute
+  NormalRoute: typeof NormalRouteWithChildren
   OrganizerRoute: typeof OrganizerRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
@@ -348,6 +396,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrganizerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/normal': {
+      id: '/normal'
+      path: '/normal'
+      fullPath: '/normal'
+      preLoaderRoute: typeof NormalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/my-events': {
       id: '/my-events'
       path: '/my-events'
@@ -360,6 +415,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about_us': {
+      id: '/about_us'
+      path: '/about_us'
+      fullPath: '/about_us'
+      preLoaderRoute: typeof About_usRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -375,6 +437,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/organizer/'
       preLoaderRoute: typeof OrganizerIndexRouteImport
       parentRoute: typeof OrganizerRoute
+    }
+    '/normal/': {
+      id: '/normal/'
+      path: '/'
+      fullPath: '/normal/'
+      preLoaderRoute: typeof NormalIndexRouteImport
+      parentRoute: typeof NormalRoute
     }
     '/events/': {
       id: '/events/'
@@ -410,6 +479,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/organizer/create'
       preLoaderRoute: typeof OrganizerCreateRouteImport
       parentRoute: typeof OrganizerRoute
+    }
+    '/normal/settings': {
+      id: '/normal/settings'
+      path: '/settings'
+      fullPath: '/normal/settings'
+      preLoaderRoute: typeof NormalSettingsRouteImport
+      parentRoute: typeof NormalRoute
     }
     '/events/create': {
       id: '/events/create'
@@ -522,6 +598,19 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
   DashboardRouteChildren,
 )
 
+interface NormalRouteChildren {
+  NormalSettingsRoute: typeof NormalSettingsRoute
+  NormalIndexRoute: typeof NormalIndexRoute
+}
+
+const NormalRouteChildren: NormalRouteChildren = {
+  NormalSettingsRoute: NormalSettingsRoute,
+  NormalIndexRoute: NormalIndexRoute,
+}
+
+const NormalRouteWithChildren =
+  NormalRoute._addFileChildren(NormalRouteChildren)
+
 interface OrganizerRouteChildren {
   OrganizerCreateRoute: typeof OrganizerCreateRoute
   OrganizerMyHostedEventsRoute: typeof OrganizerMyHostedEventsRoute
@@ -546,8 +635,10 @@ const OrganizerRouteWithChildren = OrganizerRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  About_usRoute: About_usRoute,
   DashboardRoute: DashboardRouteWithChildren,
   MyEventsRoute: MyEventsRoute,
+  NormalRoute: NormalRouteWithChildren,
   OrganizerRoute: OrganizerRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,

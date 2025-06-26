@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import {
-  FaUser,
   FaCalendarAlt,
   FaSignOutAlt,
   FaSignInAlt,
@@ -10,6 +9,7 @@ import {
   FaHome,
   FaBars,
   FaTimes,
+  FaUsers,
 } from 'react-icons/fa'
 import {  authActions, authStore } from '@/stores/authStore'
 import { useStore } from '@tanstack/react-store'
@@ -31,6 +31,9 @@ export default function Header() {
       case 'guest':
         return (
           <>
+            <Link to='/about_us' className='nav-link'>
+              <FaUsers/> About Us
+            </Link>
             <Link to="/Login" className="nav-link">
               <FaSignInAlt /> Login
             </Link>
@@ -42,11 +45,14 @@ export default function Header() {
       case 'user':
         return (
           <>
+            <Link to='/about_us' className='nav-link'>
+              <FaUsers /> About Us
+            </Link>
             <Link to="/events" className="nav-link">
               <FaCalendarAlt /> Events
             </Link>
-            <Link to="/my-events" className="nav-link">
-              <FaUser /> My Events
+            <Link to="/normal" className="nav-link">
+              <FaTools />Dashboard
             </Link>
             <button onClick={authActions.logout} className="nav-link text-red-500">
               <FaSignOutAlt /> Logout
@@ -56,6 +62,9 @@ export default function Header() {
       case 'organizer':
         return (
           <>
+            <Link to='/about_us' className='nav-link'>
+              <FaUsers /> About Us
+            </Link>
             <Link to="/organizer" className="nav-link">
               <FaTools /> Dashboard
             </Link>
