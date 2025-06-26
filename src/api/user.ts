@@ -13,9 +13,28 @@ export async function fetchUsers(): Promise<{ data: registerData[] }> {
     },
   })
   const responseData = await res.json()
-  console.log('data for this',responseData.data)
   if (!res.ok) {
     throw new Error(responseData.message || 'Request failed')
+  }
+  
+  return responseData
+}
+
+export async function fetchUserById(id: string, detailed?: boolean): Promise<{ data: registerData }> {
+  const token = authStore.state.token
+
+  const res = await fetch(`${url}/users/${id}${detailed ? '?detailed=true' : ''}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token ? `Bearer ${token}` : '',
+    },
+  })
+
+  const responseData = await res.json()
+
+  if (!res.ok) {
+    throw new Error(responseData.message || `Failed to fetch user with ID ${id}`)
   }
 
   return responseData

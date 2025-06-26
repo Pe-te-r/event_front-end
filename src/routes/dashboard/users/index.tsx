@@ -1,5 +1,5 @@
 
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { CompactTable } from '@table-library/react-table-library/compact'
 import LoadingComponent from '@/components/Loading'
 import type { registerData as User } from '@/types/types'
@@ -18,6 +18,7 @@ type Props = {
 
 function UsersRoute({themeMode='light'}:Props) {
 
+  const navigate = useNavigate()
   const { users:nodes, isLoading, error } = useUsers()
 
 
@@ -93,7 +94,9 @@ function UsersRoute({themeMode='light'}:Props) {
         label: 'Action',
         renderCell: (user: User) => (
           <button
-            onClick={() => console.log('Viewing:', user)}
+            onClick={() =>
+              navigate({ to: '/dashboard/users/$id', params: { id: user.id }, search: { detailed: 'true' } })
+            }
             className="px-2 py-1 bg-blue-600 cursor-pointer text-white text-sm rounded hover:bg-blue-700"
           >
             View Details

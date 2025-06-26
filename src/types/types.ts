@@ -20,4 +20,33 @@ export interface eventsType{
 }
 
 
+// types/user.ts or wherever you store types
 
+export interface Payment {
+  payment_id: string
+  amount: number
+}
+
+export interface RegisteredEvent {
+  registration_id: string
+  // add event name or date if needed
+}
+
+export interface CreatedEvent {
+  event_id: string
+  event_name: string
+}
+
+export interface Feedback {
+  feedback_id: string
+  comments: string
+}
+
+
+
+export interface registerDataDetailed extends registerData {
+  payments?: Payment[]
+  registeredEvents?: RegisteredEvent[]
+  createdEvents?: CreatedEvent[]
+  feedback?: Feedback[]
+}
