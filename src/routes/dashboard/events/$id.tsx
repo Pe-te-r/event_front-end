@@ -4,13 +4,13 @@ import { createFileRoute, useParams, useSearch } from '@tanstack/react-router'
 import EventDetailsCard from '@/components/EventDetailsCard'
 
 export const Route = createFileRoute('/dashboard/events/$id')({
-  component: RouteComponent,
+  component: eventsByIdFun,
   validateSearch: (search: Record<string, unknown>) => ({
     detailed: search.detailed === 'true' ? 'true' : 'false',
   }),
 })
 
-function RouteComponent() {
+export function eventsByIdFun() {
   const { id } = useParams({ strict: false })
   const { detailed } = useSearch({ strict: false })
 

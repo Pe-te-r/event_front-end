@@ -63,8 +63,19 @@ export interface EventType {
   event_description: string
   event_date: string
   average_rating: number
+  updatedAt?: string;
   registration_count: number
   feedbacks: Feedback[]
+}
+
+export type EventTypeT = {
+  event_id: string
+  event_name: string
+  event_date: string
+  event_location: string
+  event_description: string
+  createAt: string
+  updateAt: string
 }
 
 

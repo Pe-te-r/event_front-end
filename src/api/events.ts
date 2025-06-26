@@ -1,6 +1,6 @@
 import { authStore } from "@/stores/authStore";
 import { url } from "./url";
-import type { createEventT, eventsType, EventType } from "@/types/types";
+import type { createEventT, eventsType, EventType, EventTypeT } from "@/types/types";
 
 export async function fetchEvents(): Promise<{ data: eventsType[] }> {
   const token = authStore.state.token
@@ -25,6 +25,26 @@ export async function fetchEventById(id: string, detailed?: boolean): Promise<{ 
   const token = authStore.state.token
 
   const res = await fetch(`${url}/events/${id}${detailed ? '?detailed=true' : ''}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token ? `Bearer ${token}` : '',
+    },
+  })
+
+  const responseData = await res.json()
+
+  if (!res.ok) {
+    throw new Error(responseData.message || `Failed to fetch event with ID ${id}`)
+  }
+
+  return responseData
+}
+
+export async function fetchEventByUserId(id: string): Promise<{ data: EventTypeT[] }> {
+  const token = authStore.state.token
+
+  const res = await fetch(`${url}/users/${id}/events`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
