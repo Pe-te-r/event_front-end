@@ -66,3 +66,31 @@ export interface EventType {
   registration_count: number
   feedbacks: Feedback[]
 }
+
+
+export interface PaymentWithRelations {
+  payment_id: string;
+  amount: number;
+  payment_method: string;
+  payment_status: string;
+  whichEvent: {
+    event_id: string;
+    event_name: string;
+    event_date: string | Date;
+    event_location: string;
+  };
+
+  registration: {
+    registration_id: string;
+    payment_status: string; 
+    payment_amount: number;
+    registration_date: string | Date;
+  };
+
+  whoPaid: {
+    id: string;
+    first_name: string;
+    email: string;
+  };
+}
+

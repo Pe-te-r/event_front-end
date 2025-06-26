@@ -18,11 +18,13 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as EventsIndexRouteImport } from './routes/events/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as EventsCreateRouteImport } from './routes/events/create'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
 import { Route as AdminsUsersRouteImport } from './routes/admins/users'
 import { Route as AdminsDashboardRouteImport } from './routes/admins/dashboard'
 import { Route as authRegisterRouteImport } from './routes/(auth)/register'
 import { Route as authLoginRouteImport } from './routes/(auth)/Login'
 import { Route as DashboardUsersIndexRouteImport } from './routes/dashboard/users/index'
+import { Route as DashboardPaymentsIndexRouteImport } from './routes/dashboard/payments/index'
 import { Route as DashboardEventsIndexRouteImport } from './routes/dashboard/events/index'
 import { Route as DashboardUsersIdRouteImport } from './routes/dashboard/users/$id'
 import { Route as DashboardEventsIdRouteImport } from './routes/dashboard/events/$id'
@@ -72,6 +74,11 @@ const EventsCreateRoute = EventsCreateRouteImport.update({
   path: '/events/create',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const AdminsUsersRoute = AdminsUsersRouteImport.update({
   id: '/admins/users',
   path: '/admins/users',
@@ -95,6 +102,11 @@ const authLoginRoute = authLoginRouteImport.update({
 const DashboardUsersIndexRoute = DashboardUsersIndexRouteImport.update({
   id: '/users/',
   path: '/users/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardPaymentsIndexRoute = DashboardPaymentsIndexRouteImport.update({
+  id: '/payments/',
+  path: '/payments/',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardEventsIndexRoute = DashboardEventsIndexRouteImport.update({
@@ -124,12 +136,14 @@ export interface FileRoutesByFullPath {
   '/register': typeof authRegisterRoute
   '/admins/dashboard': typeof AdminsDashboardRoute
   '/admins/users': typeof AdminsUsersRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/events/create': typeof EventsCreateRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/events': typeof EventsIndexRoute
   '/dashboard/events/$id': typeof DashboardEventsIdRoute
   '/dashboard/users/$id': typeof DashboardUsersIdRoute
   '/dashboard/events': typeof DashboardEventsIndexRoute
+  '/dashboard/payments': typeof DashboardPaymentsIndexRoute
   '/dashboard/users': typeof DashboardUsersIndexRoute
 }
 export interface FileRoutesByTo {
@@ -142,12 +156,14 @@ export interface FileRoutesByTo {
   '/register': typeof authRegisterRoute
   '/admins/dashboard': typeof AdminsDashboardRoute
   '/admins/users': typeof AdminsUsersRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/events/create': typeof EventsCreateRoute
   '/dashboard': typeof DashboardIndexRoute
   '/events': typeof EventsIndexRoute
   '/dashboard/events/$id': typeof DashboardEventsIdRoute
   '/dashboard/users/$id': typeof DashboardUsersIdRoute
   '/dashboard/events': typeof DashboardEventsIndexRoute
+  '/dashboard/payments': typeof DashboardPaymentsIndexRoute
   '/dashboard/users': typeof DashboardUsersIndexRoute
 }
 export interface FileRoutesById {
@@ -162,12 +178,14 @@ export interface FileRoutesById {
   '/(auth)/register': typeof authRegisterRoute
   '/admins/dashboard': typeof AdminsDashboardRoute
   '/admins/users': typeof AdminsUsersRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/events/create': typeof EventsCreateRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
   '/dashboard/events/$id': typeof DashboardEventsIdRoute
   '/dashboard/users/$id': typeof DashboardUsersIdRoute
   '/dashboard/events/': typeof DashboardEventsIndexRoute
+  '/dashboard/payments/': typeof DashboardPaymentsIndexRoute
   '/dashboard/users/': typeof DashboardUsersIndexRoute
 }
 export interface FileRouteTypes {
@@ -183,12 +201,14 @@ export interface FileRouteTypes {
     | '/register'
     | '/admins/dashboard'
     | '/admins/users'
+    | '/dashboard/settings'
     | '/events/create'
     | '/dashboard/'
     | '/events'
     | '/dashboard/events/$id'
     | '/dashboard/users/$id'
     | '/dashboard/events'
+    | '/dashboard/payments'
     | '/dashboard/users'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -201,12 +221,14 @@ export interface FileRouteTypes {
     | '/register'
     | '/admins/dashboard'
     | '/admins/users'
+    | '/dashboard/settings'
     | '/events/create'
     | '/dashboard'
     | '/events'
     | '/dashboard/events/$id'
     | '/dashboard/users/$id'
     | '/dashboard/events'
+    | '/dashboard/payments'
     | '/dashboard/users'
   id:
     | '__root__'
@@ -220,12 +242,14 @@ export interface FileRouteTypes {
     | '/(auth)/register'
     | '/admins/dashboard'
     | '/admins/users'
+    | '/dashboard/settings'
     | '/events/create'
     | '/dashboard/'
     | '/events/'
     | '/dashboard/events/$id'
     | '/dashboard/users/$id'
     | '/dashboard/events/'
+    | '/dashboard/payments/'
     | '/dashboard/users/'
   fileRoutesById: FileRoutesById
 }
@@ -309,6 +333,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/admins/users': {
       id: '/admins/users'
       path: '/admins/users'
@@ -344,6 +375,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardUsersIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/payments/': {
+      id: '/dashboard/payments/'
+      path: '/payments'
+      fullPath: '/dashboard/payments'
+      preLoaderRoute: typeof DashboardPaymentsIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/events/': {
       id: '/dashboard/events/'
       path: '/events'
@@ -369,18 +407,22 @@ declare module '@tanstack/react-router' {
 }
 
 interface DashboardRouteChildren {
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   DashboardEventsIdRoute: typeof DashboardEventsIdRoute
   DashboardUsersIdRoute: typeof DashboardUsersIdRoute
   DashboardEventsIndexRoute: typeof DashboardEventsIndexRoute
+  DashboardPaymentsIndexRoute: typeof DashboardPaymentsIndexRoute
   DashboardUsersIndexRoute: typeof DashboardUsersIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardEventsIdRoute: DashboardEventsIdRoute,
   DashboardUsersIdRoute: DashboardUsersIdRoute,
   DashboardEventsIndexRoute: DashboardEventsIndexRoute,
+  DashboardPaymentsIndexRoute: DashboardPaymentsIndexRoute,
   DashboardUsersIndexRoute: DashboardUsersIndexRoute,
 }
 
