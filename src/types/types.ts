@@ -94,3 +94,11 @@ export interface PaymentWithRelations {
   };
 }
 
+
+export interface dashboardDataT{
+  "totalUsers": number;
+  "totalEvents": number;
+  "totalRegistrations": number;
+  "totalPayments": number;
+  "totalRevenue": number;
+}
