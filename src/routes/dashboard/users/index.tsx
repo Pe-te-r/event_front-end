@@ -1,12 +1,10 @@
 
-import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import { CompactTable } from '@table-library/react-table-library/compact'
-
-import { fetchUsers } from '@/api/user'
 import LoadingComponent from '@/components/Loading'
 import type { registerData as User } from '@/types/types'
 import { useTheme } from '@table-library/react-table-library/theme'
+import { useUsers } from '@/hooks/users'
 
 
 export const Route = createFileRoute('/dashboard/users/')({
@@ -19,12 +17,10 @@ type Props = {
 
 
 function UsersRoute({themeMode='light'}:Props) {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['users'],
-    queryFn: fetchUsers,
-  })
 
-  const nodes: User[] = data ? data?.data : []
+  const { users:nodes, isLoading, error } = useUsers()
+
+
   if (isLoading) return <LoadingComponent />
   if (error) return <div className="text-red-600">An error occurred while fetching users.</div>
 
