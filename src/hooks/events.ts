@@ -1,6 +1,8 @@
-import { fetchEventById, fetchEvents } from '@/api/events'
+import { fetchEventById, fetchEvents, registerEvent } from '@/api/events'
 import type { eventsType, EventType } from '@/types/types'
 import { useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
+import type { createEventT } from '@/types/types'
 
 export function useEvents() {
   const { data, isLoading, error } = useQuery({
@@ -27,4 +29,10 @@ export function useEventById(id: string | undefined, detailed?:boolean) {
     event,
     isLoading,error
   }
+}
+
+export function useCreateEvent() {
+  return useMutation({
+    mutationFn: (data: createEventT) => registerEvent(data),
+  })
 }

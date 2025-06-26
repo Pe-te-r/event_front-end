@@ -102,3 +102,10 @@ export interface dashboardDataT{
   "totalPayments": number;
   "totalRevenue": number;
 }
+
+export interface createEventT{
+  event_name: string;
+  event_date: string;
+  event_location: string;
+  event_description: string;
+}

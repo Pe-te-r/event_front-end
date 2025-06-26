@@ -56,12 +56,10 @@ export default function Header() {
       case 'organizer':
         return (
           <>
-            <Link to="/organizer/create" className="nav-link">
-              <FaTools /> Create Event
+            <Link to="/organizer" className="nav-link">
+              <FaTools /> Dashboard
             </Link>
-            <Link to="/organizer/my-hosted-events" className="nav-link">
-              <FaUser /> My Hosted Events
-            </Link>
+
             <button onClick={authActions.logout} className="nav-link text-red-500">
               <FaSignOutAlt /> Logout
             </button>
