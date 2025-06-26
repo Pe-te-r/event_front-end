@@ -1,6 +1,6 @@
 // Update DashboardLayout.tsx
 import { Outlet } from '@tanstack/react-router'
-import SideNav from './SideNav'
+import SideNav from '../SideNav'
 
 export default function DashboardLayout() {
 

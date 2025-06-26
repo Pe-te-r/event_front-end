@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/my-hosted-events')({
+export const Route = createFileRoute('/organizer/my-hosted-events')({
   component: RouteComponent,
 })
 

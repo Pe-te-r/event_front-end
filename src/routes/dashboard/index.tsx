@@ -1,10 +1,10 @@
 import {
   FaUsers, FaCalendarAlt, FaClipboardCheck,
-  FaChartLine, FaMoneyBillWave,
   FaMoneyBill, } from 'react-icons/fa'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useDashboard } from '@/hooks/dashboard'
 import DashboardCard from '@/components/DashboardCard'
+import LoadingComponent from '@/components/Loading'
 
 export const Route = createFileRoute('/dashboard/')({
   component: RouteComponent,
@@ -15,7 +15,7 @@ export default function RouteComponent() {
   const { dashboard, isLoading, error } = useDashboard()
   console.log('here', dashboard)
 
-  if (isLoading) return <div className="p-4">Loading dashboard...</div>
+  if (isLoading) return <LoadingComponent/>
   if (error) return <div className="p-4 text-red-600">Failed to load dashboard.</div>
 
   return (

@@ -11,17 +11,19 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as MyHostedEventsRouteImport } from './routes/my-hosted-events'
+import { Route as OrganizerRouteImport } from './routes/organizer'
 import { Route as MyEventsRouteImport } from './routes/my-events'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OrganizerIndexRouteImport } from './routes/organizer/index'
 import { Route as EventsIndexRouteImport } from './routes/events/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as OrganizerSettingsRouteImport } from './routes/organizer/settings'
+import { Route as OrganizerMyHostedEventsRouteImport } from './routes/organizer/my-hosted-events'
+import { Route as OrganizerCreateRouteImport } from './routes/organizer/create'
 import { Route as EventsCreateRouteImport } from './routes/events/create'
 import { Route as EventsIdRouteImport } from './routes/events/$id'
 import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
-import { Route as AdminsUsersRouteImport } from './routes/admins/users'
-import { Route as AdminsDashboardRouteImport } from './routes/admins/dashboard'
 import { Route as authRegisterRouteImport } from './routes/(auth)/register'
 import { Route as authLoginRouteImport } from './routes/(auth)/Login'
 import { Route as DashboardUsersIndexRouteImport } from './routes/dashboard/users/index'
@@ -40,9 +42,9 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MyHostedEventsRoute = MyHostedEventsRouteImport.update({
-  id: '/my-hosted-events',
-  path: '/my-hosted-events',
+const OrganizerRoute = OrganizerRouteImport.update({
+  id: '/organizer',
+  path: '/organizer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MyEventsRoute = MyEventsRouteImport.update({
@@ -60,6 +62,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrganizerIndexRoute = OrganizerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => OrganizerRoute,
+} as any)
 const EventsIndexRoute = EventsIndexRouteImport.update({
   id: '/events/',
   path: '/events/',
@@ -69,6 +76,21 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => DashboardRoute,
+} as any)
+const OrganizerSettingsRoute = OrganizerSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => OrganizerRoute,
+} as any)
+const OrganizerMyHostedEventsRoute = OrganizerMyHostedEventsRouteImport.update({
+  id: '/my-hosted-events',
+  path: '/my-hosted-events',
+  getParentRoute: () => OrganizerRoute,
+} as any)
+const OrganizerCreateRoute = OrganizerCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => OrganizerRoute,
 } as any)
 const EventsCreateRoute = EventsCreateRouteImport.update({
   id: '/events/create',
@@ -84,16 +106,6 @@ const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
   getParentRoute: () => DashboardRoute,
-} as any)
-const AdminsUsersRoute = AdminsUsersRouteImport.update({
-  id: '/admins/users',
-  path: '/admins/users',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminsDashboardRoute = AdminsDashboardRouteImport.update({
-  id: '/admins/dashboard',
-  path: '/admins/dashboard',
-  getParentRoute: () => rootRouteImport,
 } as any)
 const authRegisterRoute = authRegisterRouteImport.update({
   id: '/(auth)/register',
@@ -135,18 +147,20 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/my-events': typeof MyEventsRoute
-  '/my-hosted-events': typeof MyHostedEventsRoute
+  '/organizer': typeof OrganizerRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/Login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
-  '/admins/dashboard': typeof AdminsDashboardRoute
-  '/admins/users': typeof AdminsUsersRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/events/$id': typeof EventsIdRoute
   '/events/create': typeof EventsCreateRoute
+  '/organizer/create': typeof OrganizerCreateRoute
+  '/organizer/my-hosted-events': typeof OrganizerMyHostedEventsRoute
+  '/organizer/settings': typeof OrganizerSettingsRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/events': typeof EventsIndexRoute
+  '/organizer/': typeof OrganizerIndexRoute
   '/dashboard/events/$id': typeof DashboardEventsIdRoute
   '/dashboard/users/$id': typeof DashboardUsersIdRoute
   '/dashboard/events': typeof DashboardEventsIndexRoute
@@ -156,18 +170,19 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/my-events': typeof MyEventsRoute
-  '/my-hosted-events': typeof MyHostedEventsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/Login': typeof authLoginRoute
   '/register': typeof authRegisterRoute
-  '/admins/dashboard': typeof AdminsDashboardRoute
-  '/admins/users': typeof AdminsUsersRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/events/$id': typeof EventsIdRoute
   '/events/create': typeof EventsCreateRoute
+  '/organizer/create': typeof OrganizerCreateRoute
+  '/organizer/my-hosted-events': typeof OrganizerMyHostedEventsRoute
+  '/organizer/settings': typeof OrganizerSettingsRoute
   '/dashboard': typeof DashboardIndexRoute
   '/events': typeof EventsIndexRoute
+  '/organizer': typeof OrganizerIndexRoute
   '/dashboard/events/$id': typeof DashboardEventsIdRoute
   '/dashboard/users/$id': typeof DashboardUsersIdRoute
   '/dashboard/events': typeof DashboardEventsIndexRoute
@@ -179,18 +194,20 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/my-events': typeof MyEventsRoute
-  '/my-hosted-events': typeof MyHostedEventsRoute
+  '/organizer': typeof OrganizerRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/(auth)/Login': typeof authLoginRoute
   '/(auth)/register': typeof authRegisterRoute
-  '/admins/dashboard': typeof AdminsDashboardRoute
-  '/admins/users': typeof AdminsUsersRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/events/$id': typeof EventsIdRoute
   '/events/create': typeof EventsCreateRoute
+  '/organizer/create': typeof OrganizerCreateRoute
+  '/organizer/my-hosted-events': typeof OrganizerMyHostedEventsRoute
+  '/organizer/settings': typeof OrganizerSettingsRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
+  '/organizer/': typeof OrganizerIndexRoute
   '/dashboard/events/$id': typeof DashboardEventsIdRoute
   '/dashboard/users/$id': typeof DashboardUsersIdRoute
   '/dashboard/events/': typeof DashboardEventsIndexRoute
@@ -203,18 +220,20 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/my-events'
-    | '/my-hosted-events'
+    | '/organizer'
     | '/privacy'
     | '/terms'
     | '/Login'
     | '/register'
-    | '/admins/dashboard'
-    | '/admins/users'
     | '/dashboard/settings'
     | '/events/$id'
     | '/events/create'
+    | '/organizer/create'
+    | '/organizer/my-hosted-events'
+    | '/organizer/settings'
     | '/dashboard/'
     | '/events'
+    | '/organizer/'
     | '/dashboard/events/$id'
     | '/dashboard/users/$id'
     | '/dashboard/events'
@@ -224,18 +243,19 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/my-events'
-    | '/my-hosted-events'
     | '/privacy'
     | '/terms'
     | '/Login'
     | '/register'
-    | '/admins/dashboard'
-    | '/admins/users'
     | '/dashboard/settings'
     | '/events/$id'
     | '/events/create'
+    | '/organizer/create'
+    | '/organizer/my-hosted-events'
+    | '/organizer/settings'
     | '/dashboard'
     | '/events'
+    | '/organizer'
     | '/dashboard/events/$id'
     | '/dashboard/users/$id'
     | '/dashboard/events'
@@ -246,18 +266,20 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/my-events'
-    | '/my-hosted-events'
+    | '/organizer'
     | '/privacy'
     | '/terms'
     | '/(auth)/Login'
     | '/(auth)/register'
-    | '/admins/dashboard'
-    | '/admins/users'
     | '/dashboard/settings'
     | '/events/$id'
     | '/events/create'
+    | '/organizer/create'
+    | '/organizer/my-hosted-events'
+    | '/organizer/settings'
     | '/dashboard/'
     | '/events/'
+    | '/organizer/'
     | '/dashboard/events/$id'
     | '/dashboard/users/$id'
     | '/dashboard/events/'
@@ -269,13 +291,11 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   MyEventsRoute: typeof MyEventsRoute
-  MyHostedEventsRoute: typeof MyHostedEventsRoute
+  OrganizerRoute: typeof OrganizerRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
   authLoginRoute: typeof authLoginRoute
   authRegisterRoute: typeof authRegisterRoute
-  AdminsDashboardRoute: typeof AdminsDashboardRoute
-  AdminsUsersRoute: typeof AdminsUsersRoute
   EventsIdRoute: typeof EventsIdRoute
   EventsCreateRoute: typeof EventsCreateRoute
   EventsIndexRoute: typeof EventsIndexRoute
@@ -297,11 +317,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/my-hosted-events': {
-      id: '/my-hosted-events'
-      path: '/my-hosted-events'
-      fullPath: '/my-hosted-events'
-      preLoaderRoute: typeof MyHostedEventsRouteImport
+    '/organizer': {
+      id: '/organizer'
+      path: '/organizer'
+      fullPath: '/organizer'
+      preLoaderRoute: typeof OrganizerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/my-events': {
@@ -325,6 +345,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/organizer/': {
+      id: '/organizer/'
+      path: '/'
+      fullPath: '/organizer/'
+      preLoaderRoute: typeof OrganizerIndexRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
     '/events/': {
       id: '/events/'
       path: '/events'
@@ -338,6 +365,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/'
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
+    }
+    '/organizer/settings': {
+      id: '/organizer/settings'
+      path: '/settings'
+      fullPath: '/organizer/settings'
+      preLoaderRoute: typeof OrganizerSettingsRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/organizer/my-hosted-events': {
+      id: '/organizer/my-hosted-events'
+      path: '/my-hosted-events'
+      fullPath: '/organizer/my-hosted-events'
+      preLoaderRoute: typeof OrganizerMyHostedEventsRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/organizer/create': {
+      id: '/organizer/create'
+      path: '/create'
+      fullPath: '/organizer/create'
+      preLoaderRoute: typeof OrganizerCreateRouteImport
+      parentRoute: typeof OrganizerRoute
     }
     '/events/create': {
       id: '/events/create'
@@ -359,20 +407,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/settings'
       preLoaderRoute: typeof DashboardSettingsRouteImport
       parentRoute: typeof DashboardRoute
-    }
-    '/admins/users': {
-      id: '/admins/users'
-      path: '/admins/users'
-      fullPath: '/admins/users'
-      preLoaderRoute: typeof AdminsUsersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admins/dashboard': {
-      id: '/admins/dashboard'
-      path: '/admins/dashboard'
-      fullPath: '/admins/dashboard'
-      preLoaderRoute: typeof AdminsDashboardRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/(auth)/register': {
       id: '/(auth)/register'
@@ -450,17 +484,33 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
   DashboardRouteChildren,
 )
 
+interface OrganizerRouteChildren {
+  OrganizerCreateRoute: typeof OrganizerCreateRoute
+  OrganizerMyHostedEventsRoute: typeof OrganizerMyHostedEventsRoute
+  OrganizerSettingsRoute: typeof OrganizerSettingsRoute
+  OrganizerIndexRoute: typeof OrganizerIndexRoute
+}
+
+const OrganizerRouteChildren: OrganizerRouteChildren = {
+  OrganizerCreateRoute: OrganizerCreateRoute,
+  OrganizerMyHostedEventsRoute: OrganizerMyHostedEventsRoute,
+  OrganizerSettingsRoute: OrganizerSettingsRoute,
+  OrganizerIndexRoute: OrganizerIndexRoute,
+}
+
+const OrganizerRouteWithChildren = OrganizerRoute._addFileChildren(
+  OrganizerRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRouteWithChildren,
   MyEventsRoute: MyEventsRoute,
-  MyHostedEventsRoute: MyHostedEventsRoute,
+  OrganizerRoute: OrganizerRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
   authLoginRoute: authLoginRoute,
   authRegisterRoute: authRegisterRoute,
-  AdminsDashboardRoute: AdminsDashboardRoute,
-  AdminsUsersRoute: AdminsUsersRoute,
   EventsIdRoute: EventsIdRoute,
   EventsCreateRoute: EventsCreateRoute,
   EventsIndexRoute: EventsIndexRoute,
