@@ -25,6 +25,7 @@ import { Route as authLoginRouteImport } from './routes/(auth)/Login'
 import { Route as DashboardUsersIndexRouteImport } from './routes/dashboard/users/index'
 import { Route as DashboardEventsIndexRouteImport } from './routes/dashboard/events/index'
 import { Route as DashboardUsersIdRouteImport } from './routes/dashboard/users/$id'
+import { Route as DashboardEventsIdRouteImport } from './routes/dashboard/events/$id'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -106,6 +107,11 @@ const DashboardUsersIdRoute = DashboardUsersIdRouteImport.update({
   path: '/users/$id',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardEventsIdRoute = DashboardEventsIdRouteImport.update({
+  id: '/events/$id',
+  path: '/events/$id',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/events/create': typeof EventsCreateRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/events': typeof EventsIndexRoute
+  '/dashboard/events/$id': typeof DashboardEventsIdRoute
   '/dashboard/users/$id': typeof DashboardUsersIdRoute
   '/dashboard/events': typeof DashboardEventsIndexRoute
   '/dashboard/users': typeof DashboardUsersIndexRoute
@@ -138,6 +145,7 @@ export interface FileRoutesByTo {
   '/events/create': typeof EventsCreateRoute
   '/dashboard': typeof DashboardIndexRoute
   '/events': typeof EventsIndexRoute
+  '/dashboard/events/$id': typeof DashboardEventsIdRoute
   '/dashboard/users/$id': typeof DashboardUsersIdRoute
   '/dashboard/events': typeof DashboardEventsIndexRoute
   '/dashboard/users': typeof DashboardUsersIndexRoute
@@ -157,6 +165,7 @@ export interface FileRoutesById {
   '/events/create': typeof EventsCreateRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
+  '/dashboard/events/$id': typeof DashboardEventsIdRoute
   '/dashboard/users/$id': typeof DashboardUsersIdRoute
   '/dashboard/events/': typeof DashboardEventsIndexRoute
   '/dashboard/users/': typeof DashboardUsersIndexRoute
@@ -177,6 +186,7 @@ export interface FileRouteTypes {
     | '/events/create'
     | '/dashboard/'
     | '/events'
+    | '/dashboard/events/$id'
     | '/dashboard/users/$id'
     | '/dashboard/events'
     | '/dashboard/users'
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/events/create'
     | '/dashboard'
     | '/events'
+    | '/dashboard/events/$id'
     | '/dashboard/users/$id'
     | '/dashboard/events'
     | '/dashboard/users'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
     | '/events/create'
     | '/dashboard/'
     | '/events/'
+    | '/dashboard/events/$id'
     | '/dashboard/users/$id'
     | '/dashboard/events/'
     | '/dashboard/users/'
@@ -346,11 +358,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardUsersIdRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/events/$id': {
+      id: '/dashboard/events/$id'
+      path: '/events/$id'
+      fullPath: '/dashboard/events/$id'
+      preLoaderRoute: typeof DashboardEventsIdRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
 
 interface DashboardRouteChildren {
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardEventsIdRoute: typeof DashboardEventsIdRoute
   DashboardUsersIdRoute: typeof DashboardUsersIdRoute
   DashboardEventsIndexRoute: typeof DashboardEventsIndexRoute
   DashboardUsersIndexRoute: typeof DashboardUsersIndexRoute
@@ -358,6 +378,7 @@ interface DashboardRouteChildren {
 
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardEventsIdRoute: DashboardEventsIdRoute,
   DashboardUsersIdRoute: DashboardUsersIdRoute,
   DashboardEventsIndexRoute: DashboardEventsIndexRoute,
   DashboardUsersIndexRoute: DashboardUsersIndexRoute,

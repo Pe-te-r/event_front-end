@@ -50,3 +50,19 @@ export interface registerDataDetailed extends registerData {
   createdEvents?: CreatedEvent[]
   feedback?: Feedback[]
 }
+
+export interface Feedback {
+  feedback_id: string
+  comments: string
+  rating: number
+}
+
+export interface EventType {
+  event_id: string
+  event_name: string
+  event_description: string
+  event_date: string
+  average_rating: number
+  registration_count: number
+  feedbacks: Feedback[]
+}

@@ -1,6 +1,6 @@
 // src/routes/dashboard/events/index.tsx
 import { useEvents } from '@/hooks/events'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import LoadingComponent from '@/components/Loading'
 import EventCard from '@/components/EventCard'
 import type { eventsType } from '@/types/types'
@@ -10,6 +10,7 @@ export const Route = createFileRoute('/dashboard/events/')({
 })
 
 function RouteComponent() {
+  const navigate = useNavigate()
   const { events, isLoading, error } = useEvents()
 
   if (isLoading) return <LoadingComponent />
@@ -20,7 +21,7 @@ function RouteComponent() {
   )
   const handleMoreDetails = (event: eventsType) => {
     console.log(`More details for: ${event.event_name}`)
-    // optionally use TanStack's router to navigate
+    navigate({ to: '/dashboard/events/$id', params: { id: event.event_id }, search: { detailed: 'true' } })
   }
 
   return (
