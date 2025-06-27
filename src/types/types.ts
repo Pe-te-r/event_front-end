@@ -20,6 +20,14 @@ export interface eventsType{
 }
 
 
+export interface UpdateUserDto {
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+  password?: string;
+  phone?: string;
+}
+
 
 export interface Payment {
   payment_id: string

@@ -1,5 +1,5 @@
-import { fetchUserById } from '@/api/user'
-import { useQuery } from '@tanstack/react-query'
+import {  fetchUserById, updateUser } from '@/api/user'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { fetchUsers } from '@/api/user'
 import type { registerData as User } from '@/types/types'
 
@@ -15,17 +15,29 @@ export function useUsers() {
 }
 
 
-
-
-export function useUserById(id: string | undefined, detailed?:boolean) {
-  const {data,isLoading,error} = useQuery({
+export function useUserById(id: string | undefined, detailed?: boolean) {
+  const { data, isLoading, error } = useQuery({
     queryKey: ['user', id, detailed],
-    queryFn: () => fetchUserById(id!, detailed), 
-    enabled: !!id, 
+    queryFn: () => fetchUserById(id!, detailed),
+    enabled: !!id,
   })
   const user: User | undefined = data ? data.data : undefined
   return {
     user,
-    isLoading,error
+    isLoading, error
   }
+}
+
+
+
+export function useUpdateUser() {
+  return useMutation({
+    mutationFn: ({
+      userId,
+      data,
+    }: {
+      userId: string
+      data: Parameters<typeof updateUser>[1]
+    }) => updateUser(userId, data),
+  })
 }
