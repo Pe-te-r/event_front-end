@@ -27,7 +27,8 @@ function RouteComponent() {
       },
         data.accessToken
       )
-      navigate({to:'/'})
+
+      // navigate({to:'/'})
     },
     onError: (error) => {
       console.error('Login failed:', (error as Error).message)
