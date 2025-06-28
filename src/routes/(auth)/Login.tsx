@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate, useSearch } from '@tanstack/react-router'
 import { useForm } from '@tanstack/react-form'
 import { FaEnvelope, FaLock, FaSignInAlt } from 'react-icons/fa'
 import { useMutation } from '@tanstack/react-query'
@@ -12,6 +12,9 @@ export const Route = createFileRoute('/(auth)/Login')({
 
 function RouteComponent() {
   const navigate = useNavigate()
+  const params = new URLSearchParams(location.search)
+  const redirectTo = params.get('redirect') || '/'
+
 
   // send data
   const mutation = useMutation({
@@ -28,7 +31,7 @@ function RouteComponent() {
         data.accessToken
       )
 
-      // navigate({to:'/'})
+      navigate({ to: redirectTo })
     },
     onError: (error) => {
       console.error('Login failed:', (error as Error).message)
